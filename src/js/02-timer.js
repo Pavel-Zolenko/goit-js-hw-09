@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-
+console.log("привет")
 const startBtn = document.querySelector("[data-start]");
 startBtn.setAttribute("disabled", "true");
 
@@ -23,7 +23,7 @@ const options = {
 };
 
 flatpickr("input", options);
-
+console.log("привет")
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time

@@ -16,23 +16,24 @@ function createPromise(position, delay) {
   });
 }
 
-function onForm(e) {
-  e.preventDefault()
-  const delayValue = Number(e.currentTarget.delay.value);
-  const stepValue = Number(e.currentTarget.step.value);
-  const amountValue = Number(e.currentTarget.amount.value);
- 
-  for (let i = 1; i <= amountValue; i += 1) {
-    createPromise(i, delayValue)
-      .then(({ position, delay }) => {
-         Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    console.log(`:белая_галочка: Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-         Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  console.log(`:х: Rejected promise ${position} in ${delay}ms`);
-      });
-       delayValue += stepValue
-  }
+function onForm(event) {
+  event.preventDefault();
 
-};
+  let delayValue = Number(event.currentTarget.delay.value);
+  const stepValue = Number(event.currentTarget.step.value);
+  const amountValue = Number(event.currentTarget.amount.value);
+
+  for (let i = 1; i <= amountValue; i += 1) {
+    createPromise(i, delayValue).then(onSuccess).catch(onError);
+
+    delayValue += stepValue;
+  }
+}
+
+function onSuccess({ position, delay }) {
+  Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+}
+
+function onError({ position, delay }) {
+  Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+}

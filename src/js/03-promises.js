@@ -21,7 +21,7 @@ function onForm(e) {
   const delayValue = Number(e.currentTarget.delay.value);
   const stepValue = Number(e.currentTarget.step.value);
   const amountValue = Number(e.currentTarget.amount.value);
-
+ 
   for (let i = 1; i <= amountValue; i += 1) {
     createPromise(i, delayValue)
       .then(({ position, delay }) => {
@@ -32,7 +32,7 @@ function onForm(e) {
          Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
   console.log(`:х: Rejected promise ${position} in ${delay}ms`);
       });
-
+       delayValue += stepValue
   }
 
 };
